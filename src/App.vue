@@ -1,48 +1,73 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <button @click="sendHttp">发送请求</button>
-    <router-view/>
+    <el-container>
+      <el-aside :style="{width:'auto', 'min-height':asideHeight}">
+        <side-bar :isCollapse="isCollapse"/>
+      </el-aside>
+      <el-container id="content-container">
+        <el-header :style="{height:'auto'}">
+          <!-- Topbar -->
+          <top-bar @togger="toggerCollapse"/>
+        </el-header>
+        <el-main>
+          <div class="main-container">
+            <router-view />
+          </div>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
-import { fetch } from '@/request/index';
+import { Container, Aside, Header, Main } from 'element-ui';
+import SideBar from '@/components/Layout/SideBar'
+import TopBar from '@/components/Layout/TopBar'
+
 export default {
+  components: {
+    'ElContainer': Container,
+    'ElAside': Aside,
+    'ElHeader': Header,
+    'ElMain': Main,
+    'SideBar': SideBar,
+    'TopBar': TopBar,
+  },
+  data () {
+    return {
+      isCollapse: false,
+      asideHeight: '900px'
+    }
+  },
+  mounted () {
+    let height = document.documentElement.clientHeight;
+    this.asideHeight = height + 'px';
+    this.initGlobalEvent()
+    this.getSideBar()
+  },
   methods: {
-    sendHttp () {
-      fetch('/yjk-mgmt/video-dx/list?applySiteId=1&startAt=2020-04-14&endAt=2020-05-14&page=1&pageSize=10').then(res => {
-        console.log(res)
-      }).catch(e => {
-        console.log(e)
+    toggerCollapse (bol) {
+      this.isCollapse = bol;
+    },
+    initGlobalEvent() {
+      // 绑定全局事件
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'authStat' && e.newValue === 'expires') {
+          // 判断token是否失效
+          window.location.reload();
+        }
       })
+    },
+    getSideBar() {
+      this.$store.dispatch('layout/getSideBar')
     }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+html, body{
+  min-height: 100%;
+  margin: 0;
 }
 </style>
