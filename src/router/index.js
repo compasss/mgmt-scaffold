@@ -5,25 +5,39 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
   const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-    path: '/error/no-permission',
-    name: 'noPermission',
-    component: () => import(/* webpackChunkName: "noPermission" */ '../views/error/noPermission.vue')
-  }
-]
+    {
+      path: '/',
+      name: 'Home',
+      component: Home,
+      children: [
+        {
+          path: '/order-list',
+          name: 'orderList',
+          component: () => import(/* webpackChunkName: "orderList" */ '../views/order/list.vue')
+        }
+      ]
+    },
+    {
+      path: '/auth/login',
+      name: 'loginPage',
+      component: () => import(/* webpackChunkName: "loginPage" */ '../views/auth/login.vue')
+    },
+    {
+      path: '/error/no-permission',
+      name: 'noPermission',
+      component: () => import(/* webpackChunkName: "noPermission" */ '../views/error/noPermission.vue')
+    },
+    {
+      path: "/error/404",
+      name: '404',
+      component: () => import(/* webpackChunkName: "404" */ '../views/error/E404.vue')
+    },
+    {
+      path: '*', // 页面不存在的情况下会跳到404页面
+      redirect: '/error/404',
+      name: 'notFound'
+    }
+  ]
 
 const router = new VueRouter({
   mode: 'history',

@@ -1,18 +1,57 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <el-container>
+    <el-aside width="auto" :style="{'min-height':asideHeight}">
+      <side-bar :isCollapse="isCollapse"/>
+    </el-aside>
+    <el-container id="content-container">
+      <el-header :style="{height:'auto'}">
+        <!-- Topbar -->
+        <top-bar @togger="toggerCollapse"/>
+      </el-header>
+      <el-main>
+        <router-view />
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import SideBar from '@/components/Layout/SideBar'
+import TopBar from '@/components/Layout/TopBar'
 
 export default {
-  name: 'Home',
   components: {
-    HelloWorld
+    'SideBar': SideBar,
+    'TopBar': TopBar,
+  },
+  data () {
+    return {
+      isCollapse: false,
+      asideHeight: '900px'
+    }
+  },
+  mounted () {
+    let height = document.documentElement.clientHeight;
+    this.asideHeight = height + 'px';
+    this.initGlobalEvent()
+    this.getSideBar()
+  },
+  methods: {
+    toggerCollapse (bol) {
+      this.isCollapse = bol;
+    },
+    initGlobalEvent() {
+      // 绑定全局事件
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'authStat' && e.newValue === 'expires') {
+          // 判断token是否失效
+          window.location.reload();
+        }
+      })
+    },
+    getSideBar() {
+      this.$store.dispatch('layout/getSideBar')
+    }
   }
 }
 </script>

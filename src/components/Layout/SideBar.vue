@@ -14,13 +14,13 @@
     <div v-else class="logo-cont logo-open">
       <img src="https://assets.ieyecloud.com/screening2/logo.png">
     </div>
-    <template v-for="(item, index) in sidebarConfig">
-      <el-submenu :index="item.path" v-if="item.child" :key="index">
+    <template v-for="(item, index) in sideBarArr">
+      <el-submenu :index="item.path" v-if="item.child.length" :key="index">
         <template slot="title">
           <i :class="item.icon"></i>
           <span>{{item.title}}</span>
         </template>
-        <el-menu-item v-for="(child, index2) in item.children" :key="index2" :index="item.path + child.path" :route="child">{{child.title}}</el-menu-item>
+        <el-menu-item v-for="(child, index2) in item.child" :key="index2" :index="item.path + child.path" :route="child">{{child.title}}</el-menu-item>
       </el-submenu>
       <el-menu-item :index="item.path" v-else :key="index">
         <i :class="item.icon"></i>
@@ -32,16 +32,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { sidebarConfigArr } from '@/config/layerSideBar.js'
-
-import { Menu, Submenu, MenuItem } from 'element-ui'
+import sidebarConfigArr from '@/config/layerSideBar.js'
 
 export default {
-  components: {
-    'ElMenu': Menu,
-    'ElSubmenu': Submenu,
-    'ElMenuItem': MenuItem
-  },
   props: {
     isCollapse: {
       type: Boolean,
@@ -134,7 +127,7 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
-  height: 50px;
+  height: 52px;
   background-color: #14ae67;
   img{
     display: block;

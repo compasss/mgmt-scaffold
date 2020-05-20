@@ -1,0 +1,15 @@
+@import "./elementUiReset.scss";
+
+body, html{
+  margin: 0;
+  height: 100%;
+}
+.root-page{
+  height: 100%;
+}
+.p-l-10{
+  padding-left: 10px;
+}
+.form-wrapper{
+  padding-bottom: 10px;
+}

@@ -17,16 +17,9 @@
 </template>
 
 <script>
-import { sidebarConfigArr } from '@/config/layerSideBar.js'
-
-import { Button, Breadcrumb, BreadcrumbItem } from 'element-ui'
+import sidebarConfigArr from '@/config/layerSideBar.js'
 
 export default {
-  components: { 
-    'el-button': Button,
-    'el-breadcrumb': Breadcrumb,
-    'el-breadcrumb-item': BreadcrumbItem
-  },
   data () {
     return {
       isCollapse: false,
@@ -45,6 +38,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      console.log('to', to, from)
       // route change
       // this.breadcrumbArr = this.showBreadcrumb(to.name);
     }
@@ -62,17 +56,13 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$axios({
-          api: 'logout',
+          api: 'mockSignout',
           method: 'POST'
         }).then(res => {
-          this.$cookies.remove('x-auth-token', {
+          Cookies.remove('x-auth-token', {
             path: '/'
           })
-          if (process.env.env === 'production') {
-            location.href = location.origin + '/auth/login'
-          } else {
-            location.href = location.origin + '/yjk-web/auth/login'
-          }
+          location.href = location.origin + '/auth/login'
         }).catch(e => {
           this.$message({
             msg: '退出失败，请稍后再试',

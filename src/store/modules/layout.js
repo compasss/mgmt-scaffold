@@ -13,7 +13,7 @@ const state = {
 }
 
 const mutations = {
-  SET_SIDEBAR_ARR({ state }, payload) {
+  SET_SIDEBAR_ARR(state, payload) {
     let result = []
     layoutConfig.forEach(item => {
       if (!item.roles || _.intersection(item.roles, payload).length) {
@@ -22,7 +22,6 @@ const mutations = {
     });
 
     state.sideBarArr = listToTree(result)
-    console.log(state.sideBarArr)
   }
 }
 

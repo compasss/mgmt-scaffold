@@ -28,9 +28,7 @@ const instance = axios.create(config)
 instance.interceptors.request.use(
   config => {
     config.headers['X-B3-TraceId'] = uuidv4();
-    config.headers['X-Session-Id'] = sessionStorage.getItem('xSessionId')
-    // if(!options.method || options.method.toLocaleUpperCase() === 'POST') {
-    // }
+    config.headers['X-Session-Id'] = sessionStorage.getItem('xSessionId');
     return config
   },
   error => {
@@ -133,3 +131,5 @@ export default function $axios(options, onlyData = true, loading = true) {
       })
   })
 }
+
+$axios.config = config;

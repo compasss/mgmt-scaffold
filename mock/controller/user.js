@@ -8,7 +8,42 @@ router.post('/login', function(req, res) {
     user_id: 150,
     roles: ['path1', 'path3']
   }
-  res.json(Mock.mock(json))
+  res.json(json)
+})
+
+router.post('/signout', function(req, res) {
+  let json = {
+    success: true
+  }
+  res.json(json)
+})
+
+router.post('/sms', function(req, res) {
+  let json = {
+    success: true
+  }
+  res.json(json)
+})
+
+router.post('/verify', function(req, res) {
+  let json = {
+    success: true
+  }
+  res.json(json)
+})
+
+router.post('/changePassword', function(req, res) {
+  let json = {
+    success: true
+  }
+  res.json(json)
+})
+
+router.put('/resetPassword', function(req, res) {
+  let json = {
+    success: true
+  }
+  res.json(json)
 })
 
 router.get('/userinfo', function (req, res) {

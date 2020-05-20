@@ -1,0 +1,18 @@
+// layout
+.el-menu-vertical:not(.el-menu--collapse){
+  width: 200px;
+}
+.el-header{
+  padding: 0;
+}
+
+// login page
+.login-form-item .el-input-group__append{
+  padding: 0;
+}
+.login-form-item .el-input-group__prepend{
+  width: 36px;
+  background-color: #14ae67;
+  text-align: center;
+  padding: 0;
+}

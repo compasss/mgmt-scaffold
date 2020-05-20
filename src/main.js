@@ -5,7 +5,13 @@ import store from './store'
 
 import axios from '@/request/index.js'
 
+// import element-ui
+import './ui.js'
+
+import '@/assets/scss/style.scss'
+
 Vue.config.productionTip = false
+Vue.prototype.$axios = axios
 
 // net status
 let condition = 'onLine';
@@ -17,8 +23,6 @@ function updateOnlineStatus() {
 }
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
-
-Vue.prototype.$axios = axios
 
 new Vue({
   router,

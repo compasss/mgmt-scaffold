@@ -7,8 +7,8 @@ export default {
     }
     for (i = 0; i < list.length; i += 1) {
       node = list[i];
-      if (node.pid !== '-1') {
-        map[node.pid].child.push(node);
+      if (node.parent) {
+        map[node.parent].child.push(node);
       } else {
         tree.push(node);
       }

@@ -4,7 +4,7 @@ export default {
   headers: {
     'Content-Type':'application/json;charset=UTF-8',
     'X-Requested-With': 'XMLHttpRequest',
-    'x-auth-token': '554f9011-add6-4c48-bfde-53772cd45f19'
+    'x-auth-token': localStorage.getItem('x-auth-token') || ''
   },
   // 设置超时时间
   timeout: 10000,

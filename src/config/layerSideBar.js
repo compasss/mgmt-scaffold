@@ -7,7 +7,7 @@ export default [
     id: 1,
     title: '菜单1',
     icon: 'iconfont eye-dashboard',
-    path: '/dashboard',
+    path: '/order-list',
     parent: null,
     sub: 1,
     roles: ['path1']
@@ -25,7 +25,7 @@ export default [
     title: '菜单2-1',
     path: '/path2-1',
     parent: 2,
-    roles: ['path1']
+    roles: ['path6']
   },{
     id: 4,
     title: '菜单2-2',
